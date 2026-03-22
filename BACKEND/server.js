@@ -2,12 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 dotenv.config();
 
 const app = express();
+
 app.use(express.json());
 app.use("/api", authRoutes);
+app.use("/api/products", productRoutes);
 
 // 🔍 Debug line (to check if MONGO_URI is coming or not)
 console.log("MONGO_URI:", process.env.MONGO_URI);

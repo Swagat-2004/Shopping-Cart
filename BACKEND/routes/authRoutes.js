@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const authMiddleware = require("../middleware/authMiddleware");
+const { authMiddleware } = require("../middleware/authMiddleware");
 
 // ================= REGISTER =================
 router.post("/register", async (req, res) => {
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
 
     // Generate token
     const token = jwt.sign(
-    { id: user._id },
+    { id: user._id, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
     );

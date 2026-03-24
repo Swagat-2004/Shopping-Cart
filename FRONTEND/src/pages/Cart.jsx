@@ -4,7 +4,7 @@ const Cart = ({ goBack }) => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/cart")
+    fetch("https://shopping-cart-production-0271.up.railway.app/api/cart")
       .then((res) => res.json())
       .then((data) => {
         console.log("Cart data:", data);
@@ -22,7 +22,7 @@ const Cart = ({ goBack }) => {
   }, []);
 
   const removeItem = (id) => {
-    fetch(`http://localhost:5000/api/cart/delete/${id}`, {
+    fetch(`https://shopping-cart-production-0271.up.railway.app/api/cart/delete/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -35,7 +35,7 @@ const Cart = ({ goBack }) => {
   const updateQuantity = (id, newQty) => {
     if (newQty < 1) return;
 
-    fetch(`http://localhost:5000/api/cart/update/${id}`, {
+    fetch(`https://shopping-cart-production-0271.up.railway.app/api/cart/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -6,14 +6,14 @@ function App() {
   const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products")
+    fetch("https://shopping-cart-production-0271.up.railway.app/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));
   }, []);
 
   const addToCart = (productId) => {
-    fetch("http://localhost:5000/api/cart/add", {
+    fetch("https://shopping-cart-production-0271.up.railway.app/api/cart/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

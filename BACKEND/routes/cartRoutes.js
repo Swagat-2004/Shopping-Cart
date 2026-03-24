@@ -5,12 +5,12 @@ const router = express.Router();
 const Cart = require("../models/Cart");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.post("/add", authMiddleware, async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
     const { productId, quantity } = req.body;
 
     const cartItem = await Cart.create({
-      user: req.user.id,
+      user: null,
       product: productId,
       quantity: quantity || 1
     });
@@ -26,9 +26,9 @@ router.post("/add", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const cart = await Cart.find({ user: req.user.id }).populate("product");
+    const cart = await Cart.find().populate("product");
     res.status(200).json(cart);
   } catch (error) {
     console.log(error);

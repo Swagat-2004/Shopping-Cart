@@ -9,15 +9,25 @@ router.post("/add", async (req, res) => {
   try {
     const { productId, quantity } = req.body;
 
-    const cartItem = await Cart.create({
-      user: null,
-      product: productId,
-      quantity: quantity || 1
-    });
+    // 🔍 check if product already in cart
+    let cartItem = await Cart.findOne({ product: productId });
 
-    res.status(201).json({
-      message: "Product added to cart",
-      cartItem
+    if (cartItem) {
+      // 👉 increase quantity
+      cartItem.quantity += 1;
+      await cartItem.save();
+    } else {
+      // 👉 create new item
+      cartItem = await Cart.create({
+        user: null,
+        product: productId,
+        quantity: quantity || 1,
+      });
+    }
+
+    res.status(200).json({
+      message: "Cart updated",
+      cartItem,
     });
 
   } catch (error) {
@@ -37,7 +47,7 @@ router.get("/", async (req, res) => {
 });
 
 // ================= UPDATE CART ITEM =================
-router.put("/update/:id", authMiddleware, async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const { quantity } = req.body;
 

@@ -32,7 +32,7 @@ function App() {
 
   // 👉 If cart button clicked → show cart page
   if (showCart) {
-    return <Cart />;
+    return <Cart goBack={() => setShowCart(false)} />;
   }
 
   return (

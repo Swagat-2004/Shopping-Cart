@@ -38,7 +38,7 @@ router.post("/add", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const cart = await Cart.find().populate("product");
+    const cart = await Cart.find();
     res.status(200).json(cart);
   } catch (error) {
     console.log(error);
